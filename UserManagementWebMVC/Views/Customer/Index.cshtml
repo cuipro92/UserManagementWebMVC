@@ -1,0 +1,51 @@
+﻿@using UserManagementWebMVC.Models;
+@model IEnumerable<CustomerModel>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Index</h2>
+
+<div class="card" style="width: 98%;">
+    <div class="card-header">
+        <label class="text-danger">@ViewBag.Error</label>
+        <button type="submit" class="btn btn-primary" onclick="window.location.href = '@Url.Action("Insert", "Customer")';">Add</button>
+        @using (@Html.BeginForm())
+        {
+            @Html.TextBox("search") <input type="submit" value="search" class="btn btn-secondary" />
+        }
+    </div>
+    <div class="card-body">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Birthday</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Gender</th>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.UserID</td>
+                        <td>@item.UserName</td>
+                        <td>@item.Birthday.ToString("dd/MM/yyyy")</td>
+                        <td>@item.Address</td>
+                        <td>@item.Email</td>
+                        <td>@item.Gender</td>
+                        <td>@Html.ActionLink("Edit", "Edit", new { id = item.UserID }) | @Html.ActionLink("Delete", "Delete", new { id = item.UserID })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer"></div>
+</div>
+
